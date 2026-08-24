@@ -1,0 +1,20 @@
+[Unit]
+Description=Raspberry Pi File Push & Remote Command Execution API
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/pi-push-api
+Environment="PATH=/home/pi/pi-push-api/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Environment="PI_PUSH_HOST=0.0.0.0"
+Environment="PI_PUSH_PORT=8000"
+Environment="PI_PUSH_BASE_DIR=/home/pi/pi-push-api/uploads"
+Environment="PI_PUSH_ALLOW_ABSOLUTE_PATHS=true"
+Environment="PI_PUSH_ENABLE_EXEC=true"
+ExecStart=/home/pi/pi-push-api/venv/bin/python -m server.app.main
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  pi-push-api:
+    build: .
+    container_name: pi-push-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PI_PUSH_HOST=0.0.0.0
+      - PI_PUSH_PORT=8000
+      - PI_PUSH_BASE_DIR=/app/uploads
+      - PI_PUSH_ALLOW_ABSOLUTE_PATHS=true
+      - PI_PUSH_ENABLE_EXEC=true
+    volumes:
+      - ./uploads:/app/uploads
+      # Uncomment below to allow access to host root filesystem inside container
+      # - /:/host:rw
