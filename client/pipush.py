@@ -301,6 +301,13 @@ def cli_status(client: PiPushClient, args):
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
     default_url = os.getenv("PI_PUSH_URL", "http://localhost:8000")
 
     parser = argparse.ArgumentParser(
